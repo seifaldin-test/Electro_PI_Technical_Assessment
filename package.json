@@ -1,0 +1,21 @@
+{
+  "name": "electro_pi_technical_assessment",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test:api": "newman run postman/Electro_PI_Technical_Assesment.postman_collection.json -e postman/Electro_PI.postman_environment.json -r cli,htmlextra --reporter-htmlextra-export reports/api-report.html",
+    "test:ui:smoke": "npx playwright test --grep @smoke",
+    "test:ui:regression": "npx playwright test"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@playwright/test": "^1.63.0",
+    "@types/node": "^26.6.3",
+    "newman": "^6.0.0",
+    "newman-reporter-htmlextra": "^1.23.0"
+  }
+}

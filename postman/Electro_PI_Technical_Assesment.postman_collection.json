@@ -1,0 +1,205 @@
+{
+  "info": {
+    "_postman_id": "2c49a2fd-75e0-4c19-86e5-d15d7034500c",
+    "name": "Electro_PI_Technical_Assesment",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "43784589",
+    "_collection_link": "https://go.postman.co/collection/43784589-2c49a2fd-75e0-4c19-86e5-d15d7034500c?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "SendAuthReqeust",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 201 Created\", function () {\r",
+              "  pm.response.to.have.status(201);\r",
+              "});\r",
+              "\r",
+              "const response = pm.response.json();\r",
+              "\r",
+              "pm.test(\"Returned SKU is correct\", function () {\r",
+              "  pm.expect(response.sku).to.eql(\"MS-001\");\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Response contains item\", function () {\r",
+              "  pm.expect(response).to.have.property(\"item_name\");\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Item name is correct\", function () {\r",
+              "  pm.expect(response.item_name).to.eql(\"Wireless Mouse\");\r",
+              "});\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "pm.sendRequest({\r",
+              "  url: pm.environment.get(\"baseUrl\") + \"/api/v1/auth/login\",\r",
+              "  method: \"POST\",\r",
+              "  header: { \"Content-Type\": \"application/json\" },\r",
+              "  body: {\r",
+              "    mode: \"raw\",\r",
+              "    raw: JSON.stringify({\r",
+              "      username: pm.environment.get(\"username\"),\r",
+              "      password: pm.environment.get(\"password\")\r",
+              "    })\r",
+              "  }\r",
+              "}, function (error, response) {\r",
+              "  pm.test(\"Authentication request succeeded\", function () {\r",
+              "    pm.expect(error).to.be.null;\r",
+              "    pm.expect(response.code).to.eql(200);\r",
+              "  });\r",
+              "\r",
+              "  const json = response.json();\r",
+              "  pm.environment.set(\"token\", json.token);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "{{base_Url}}/api/v1/inventory/items",
+          "host": [
+            "{{base_Url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "inventory",
+            "items"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Createitem",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 201 Created\", function () {\r",
+              "  pm.response.to.have.status(201);\r",
+              "});\r",
+              "\r",
+              "const response = pm.response.json();\r",
+              "\r",
+              "pm.test(\"Returned SKU is correct\", function () {\r",
+              "  pm.expect(response.sku).to.eql(\"MS-001\");\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Response contains item\", function () {\r",
+              "  pm.expect(response).to.have.property(\"item_name\");\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Item name is correct\", function () {\r",
+              "  pm.expect(response.item_name).to.eql(\"Wireless Mouse\");\r",
+              "});\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "pm.sendRequest({\r",
+              "  url: pm.environment.get(\"baseUrl\") + \"/api/v1/auth/login\",\r",
+              "  method: \"POST\",\r",
+              "  header: { \"Content-Type\": \"application/json\" },\r",
+              "  body: {\r",
+              "    mode: \"raw\",\r",
+              "    raw: JSON.stringify({\r",
+              "      username: pm.environment.get(\"username\"),\r",
+              "      password: pm.environment.get(\"password\")\r",
+              "    })\r",
+              "  }\r",
+              "}, function (error, response) {\r",
+              "  pm.test(\"Authentication request succeeded\", function () {\r",
+              "    pm.expect(error).to.be.null;\r",
+              "    pm.expect(response.code).to.eql(200);\r",
+              "  });\r",
+              "\r",
+              "  const json = response.json();\r",
+              "  pm.environment.set(\"token\", json.token);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "{{base_Url}}/api/v1/inventory/items",
+          "host": [
+            "{{base_Url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "inventory",
+            "items"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ]
+}
